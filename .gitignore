@@ -23,7 +23,7 @@ bin/
 *.iml
 *.ipr
 *.DS_Store
-out/
+out/g
 !**/src/main/**/out/
 !**/src/test/**/out/
 
