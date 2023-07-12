@@ -4,8 +4,8 @@ plugins {
     id 'java'
     id 'jacoco'
     id "org.sonarqube" version "2.8"
-    //  id 'checkstyle'
-    // id 'pmd'
+    id 'checkstyle'
+    id 'pmd'
     id "org.liquibase.gradle" version "2.0.4"
 }
 
@@ -20,18 +20,18 @@ configurations {
 ext['log4j2.version'] = '2.16.0'
 
 
-//pmd {
-//    toolVersion = '6.10.0'
-//    ruleSets = []
-//    ignoreFailures = false
-//    ruleSetFiles = files("${rootProject.projectDir}/pmd/rules.xml")
-//}
-//
-//checkstyle {
-//    toolVersion = '8.15'
-//    configFile = file("${rootProject.projectDir}/checkstyle/checkstyle.xml")
-//    ignoreFailures = true
-//}
+pmd {
+    toolVersion = '6.10.0'
+    ruleSets = []
+    ignoreFailures = false
+    ruleSetFiles = files("${rootProject.projectDir}/pmd/rules.xml")
+}
+
+checkstyle {
+    toolVersion = '8.15'
+    configFile = file("${rootProject.projectDir}/checkstyle/checkstyle.xml")
+    ignoreFailures = true
+}
 
 tasks.withType(Checkstyle) {
     reports {

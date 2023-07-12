@@ -200,7 +200,6 @@ public class OtpServiceImpl implements OtpService {
                     PhoneUtil.maskNumber(otp, 2, otp.length() - 2, '*');
             String maskMessageText = messageText.replace(otp, maskOtp);
             OtpLog otpLog = OtpLog.builder()
-                    // .userId(UUID.fromString(userId))
                     .pin(sendOtpRequisite.getPin())
                     .otpDefinitionId(UUID.fromString(sendOtpRequisite.getOtpDefinitionId())).smsText(maskMessageText)
                     .phone(formattedPhone).refId(otpResponse.getMessageID()).build();
