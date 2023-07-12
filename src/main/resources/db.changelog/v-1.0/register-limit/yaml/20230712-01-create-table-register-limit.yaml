@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - logicalFilePath: 20230712-01-create-table-register-limit.yaml
+  - changeSet:
+      id: 20230712-1
+      author: TajaddinGanjali
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: ID
+                  type: NUMBER(19, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: CREATED_DATE
+                  remarks: inserted row date
+                  type: TIMESTAMP(6)
+              - column:
+                  name: UPDATED_DATE
+                  remarks: updated row date
+                  type: TIMESTAMP(6)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: STATE
+                  remarks: 0 - DELETED; 1 - ACTIVE;  2 - UPDATED; 3 - DEACTIVE
+                  type: NUMBER(1, 0)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: CONFIG_ID
+                  remarks: Limit config id
+                  type: NUMBER(19, 0)
+              - column:
+                  name: PIN
+                  remarks: Pin value
+                  type: VARCHAR2(14 BYTE)
+              - column:
+                  name: PHONE
+                  remarks: Phone value
+                  type: VARCHAR2(24 BYTE)
+              - column:
+                  name: CARD
+                  remarks: Card value
+                  type: VARCHAR2(50 BYTE)
+              - column:
+                  name: ATTEMPT_COUNT
+                  constraints:
+                    nullable: false
+                  remarks: Attempt count
+                  type: NUMBER(3, 0)
+              - column:
+                  name: FIRST_ATTEMPT
+                  remarks: First attempt time
+                  type: TIMESTAMP(6)
+              - column:
+                  name: LAST_ATTEMPT
+                  remarks: Last attempt time
+                  type: TIMESTAMP(6)
+            tableName: REGISTER_LIMIT
+
+  - changeSet:
+      id: 20230712-2
+      author: TajaddinGanjali
+      changes:
+        - createSequence:
+            maxValue: 9999999999999999999999999999
+            sequenceName: REGISTER_LIMIT_SEQ
+            startValue: 1
+
+  - changeSet:
+      id: 20230712-3
+      author: TajaddinGanjali
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: CONFIG_ID
+            baseTableName: REGISTER_LIMIT
+            constraintName: FK_REGISTERLIMIT_REGISTERLIMITCONFIG
+            deferable: false
+            initiallyDeferred: false
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: ID
+            referencedTableName: REGISTER_LIMIT_CONFIG
+            validate: true

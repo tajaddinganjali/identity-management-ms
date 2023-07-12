@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - logicalFilePath: 20230712-02-register-limit-config-create-unique-index.yaml
+  - changeSet:
+      id: 20230712-3
+      author: TajaddinGanjali
+      changes:
+        - sqlFile:
+            comment: add unique index for service
+            splitStatements: true
+            path: db/changelog/v-3.0/register-limit-config/sql/20230712-02-register-limit-config-create-unique-index.sql

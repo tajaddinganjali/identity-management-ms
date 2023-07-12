@@ -1,0 +1,9 @@
+package com.management.register.enums;
+
+public enum RegisterCaseTypeEnum {
+    REGISTER_PIN_SUCCESS, REGISTER_CARD_SUCCESS, IDENTIFIED_USER_NOT_FOUND_FLEX,
+    IDENTIFIED_USER_CIF_PHONE_MISMATCH, CORPORATE_CUSTOMER, MORE_THAN_ACCEPTED_CIF, MULTI_CIF_NON_RESIDENT;
+
+    RegisterCaseTypeEnum() {
+    }
+}

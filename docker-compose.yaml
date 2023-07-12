@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mongo-error-handling:
+    image: mongo
+    restart: always
+    #network_mode: host
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+    command: --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: admin
+    privileged: true
+
+  redis:
+    image: "redis:latest"
+    command: --requirepass 123
+    container_name: redis-local-iam
+    volumes:
+      - db_data:/var/lib/redis
+    ports:
+      - 6379:6379
+volumes:
+  db_data:
