@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/v-1.0/otp-limit-config/yaml
+  - includeAll:
+      path: db/changelog/v-1.0/otp-limit/yaml
+  - includeAll:
+      path: db/changelog/v-1.0/register-limit-config/yaml
+  - includeAll:
+      path: db/changelog/v-1.0/register-limit/yaml
+  - includeAll:
+      path: db/changelog/v-1.0/authorization-limit-config/yaml
+  - includeAll:
+      path: db/changelog/v-1.0/authorization-limit/yaml
+  - includeAll:
+      path: db/changelog/v-1.0/register-limit-audit/yaml

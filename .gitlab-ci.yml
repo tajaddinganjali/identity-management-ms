@@ -1,0 +1,28 @@
+image: registry.access.redhat.com/openjdk:11-jdk
+stages:
+  - cache
+  - check_build_tests
+  - fortify_analyse
+  - proceed
+  - sonar
+  - image-build
+  - liquibase
+  - deploy
+ # - contract-test
+
+variables:
+  MS_NAME: identity-management-ms
+  NAMESPACE: backend
+
+include:
+  - project: 'devops/gitops/templates'
+    ref: master
+    file: 'gitlab-ci/backend/.cache.yml'
+  - project: 'devops/gitops/templates'
+    ref: master
+    file: 'gitlab-ci/backend/.liquibase-yaml.yml'
+  - project: 'devops/gitops/templates'
+    ref: master
+    file: 'gitlab-ci/backend/.all.yml'
+
+

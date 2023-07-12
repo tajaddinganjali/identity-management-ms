@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - logicalFilePath: 20230712-02-add-constraint-register-limit.yaml
+  - changeSet:
+      id: 20230712-2
+      author: TajaddinGanjali
+      changes:
+        - sqlFile:
+            comment: add check constraint
+            splitStatements: true
+            path: db/changelog/v-3.0/register-limit/sql/20230712-01-add-constraint-register-limit.sql

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - logicalFilePath: 20230712-03-initialize-register-limit-config.yaml
+  - changeSet:
+      id: 20230712-2
+      author: TajaddinGanjali
+      changes:
+        - sqlFile:
+            comment: initialize register limit config
+            splitStatements: true
+            path: db/changelog/v-3.0/register-limit-config/sql/20230712-03-initialize-register-limit-config.sql

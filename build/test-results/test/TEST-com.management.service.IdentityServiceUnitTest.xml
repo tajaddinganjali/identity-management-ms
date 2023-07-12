@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.management.service.IdentityServiceUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-07-12T17:44:56" hostname="004121-MAC.local" time="6.186">
+  <properties/>
+  <testcase name="identifyUser_notFoundInFlex()" classname="com.management.service.IdentityServiceUnitTest" time="6.186"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

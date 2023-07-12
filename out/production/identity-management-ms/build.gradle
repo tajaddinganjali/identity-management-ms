@@ -1,0 +1,161 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "2.8"
+    //  id 'checkstyle'
+    // id 'pmd'
+    id "org.liquibase.gradle" version "2.0.4"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    all*.exclude module: 'spring-boot-starter-logging'
+}
+
+ext['log4j2.version'] = '2.16.0'
+
+
+//pmd {
+//    toolVersion = '6.10.0'
+//    ruleSets = []
+//    ignoreFailures = false
+//    ruleSetFiles = files("${rootProject.projectDir}/pmd/rules.xml")
+//}
+//
+//checkstyle {
+//    toolVersion = '8.15'
+//    configFile = file("${rootProject.projectDir}/checkstyle/checkstyle.xml")
+//    ignoreFailures = true
+//}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "${nexusUrl}/repository/maven-public/"
+        allowInsecureProtocol = true
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation("org.liquibase:liquibase-core:$liquibaseVersion") {
+        exclude group: 'ch.qos.logback'
+    }
+    implementation "com.oracle.ojdbc:ojdbc8:$oracleVersion"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation("io.springfox:springfox-swagger2:$swaggerVersion")
+    implementation("io.springfox:springfox-swagger-ui:$swaggerVersion")
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.data:spring-data-envers'
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: "$starterOpenFeign"
+    implementation group: 'org.codehaus.jettison', name: 'jettison', version: "$jettisonVersion"
+    implementation("io.jsonwebtoken:jjwt:$jjwtVersion")
+    implementation "com.auth0:java-jwt:$jwtAuthVersion"
+    implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: "$nimbusdsVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jsr310Version"
+    implementation "org.jsonschema2pojo:jsonschema2pojo-core:$jsonVersion"
+    implementation "org.apache.commons:${commonsLangVersion}"
+    implementation "org.redisson:redisson:$redisVersion"
+    implementation "org.passay:passay:$passayVersion"
+    implementation "com.ibam:ibam-error-handling:$ibamErrorHandlerVersion"
+    implementation "az.ibar:ibar-eventhub:$ibarEventHubVersion"
+    implementation group: 'net.javacrumbs.shedlock', name: 'shedlock-spring', version: "${shedlockSpringVersion}"
+    implementation group: 'net.javacrumbs.shedlock', name: 'shedlock-provider-redis-jedis', version: "${shedlockProviderJedisVersion}"
+    implementation group: 'redis.clients', name: 'jedis', version: "${jedis}"
+    implementation group: 'com.esotericsoftware', name: 'kryo', version: "${kryo}"
+    implementation "org.redisson:redisson:$redissonVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+    }
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+
+def sonarExclude = [
+        "**/com/ibar/iam/config/**",
+        "**/com/ibar/iam/enums/*",
+        "**/com/ibar/iam/event/**",
+        "**/com/ibar/iam/exception/*",
+        "**/com/ibar/iam/identity/dto/*",
+        "**/com/ibar/iam/identity/enums/*",
+        "**/com/ibar/iam/identity/asan/config/*",
+        "**/com/ibar/iam/identity/asan/decoder/*",
+        "**/com/ibar/iam/identity/asan/dto/*",
+        "**/com/ibar/iam/identity/asan/enums/*",
+        "**/com/ibar/iam/identity/asan/repository/*",
+        "**/com/ibar/iam/identity/flex/accountreader/**",
+        "**/com/ibar/iam/identity/flex/customerreader/**",
+        "**/com/ibar/iam/identity/flex/customerservice/**",
+        "**/com/ibar/iam/identity/flex/dto/*",
+        "**/com/ibar/iam/identity/flex/enums/*",
+        "**/com/ibar/iam/identity/kobil/config/*",
+        "**/com/ibar/iam/identity/kobil/decoder/*",
+        "**/com/ibar/iam/identity/kobil/dto/*",
+        "**/com/ibar/iam/identity/kobil/repository/*",
+        "**/com/ibar/iam/limit/dto/*",
+        "**/com/ibar/iam/logging/*",
+        "**/com/ibar/iam/model/**",
+        "**/com/ibar/iam/otp/config/*",
+        "**/com/ibar/iam/otp/dto/*",
+        "**/com/ibar/iam/otp/enums/*",
+        "**/com/ibar/iam/otp/repository/*",
+        "**/com/ibar/iam/otp/util/*",
+        "**/com/ibar/iam/register/config/**",
+        "**/com/ibar/iam/register/dto/**",
+        "**/com/ibar/iam/register/enums/*",
+        "**/com/ibar/iam/repository/**",
+        "**/com/ibar/iam/template/**",
+        "**/com/ibar/iam/util/**",
+        '**/IbamIamApplication.java',
+        "**/com/ibar/iam/agreement/config/*",
+        "**/com/ibar/iam/agreement/dto/*",
+        "**/com/ibar/iam/agreement/enums/*",
+        "**/com/ibar/iam/agreement/repository/*"
+]
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "ibam-identity-management-microservice"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property 'sonar.coverage.exclusions', sonarExclude
+        property "sonar.jacoco.reportPath", "build/jacoco/test.exec"
+        property "sonar.junit.reportsPath", "build/test-results/test"
+        property "sonar.host.url", "https://sonarqube.com"
+        property "sonar.scm.forceReloadAll", "true"
+        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
+    }
+}
